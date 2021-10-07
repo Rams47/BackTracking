@@ -1,0 +1,108 @@
+package fourfifty;
+
+import java.util.*;
+
+public class TwoEightyThree {
+
+	static int N = 8;
+
+	private static boolean isSafe(int x, int y, int[][] vis) {
+
+		return (x >= 0 && x < N && y >= 0 && y < N && vis[x][y] == -1);
+	}
+
+	static void printSolution(int sol[][]) {
+		for (int x = 0; x < N; x++) {
+			for (int y = 0; y < N; y++)
+				System.out.print(sol[x][y] + " ");
+			System.out.println();
+		}
+	}
+
+	private static void solveKT() {
+
+		int[][] vis = new int[N][N];
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				vis[i][j] = -1;
+			}
+		}
+
+		if (!solveKTUtil(0, 0, vis, 0)) {
+			System.out.println("Solution does not exist");
+
+		} else
+			printSolution(vis);
+
+	}
+
+	private static boolean solveKTUtil(int x, int y, int[][] vis, int z) {
+
+		vis[x][y] = z;
+
+		if (z == N * N - 1) {
+			return true;
+		}
+
+		// (x+2,y+1) 
+		if (isSafe(x + 2, y + 1, vis)) {
+			if (solveKTUtil(x + 2, y + 1, vis, z + 1))
+				return true;
+		}
+
+		// (x+1,y+2) 
+		if (isSafe(x + 1, y + 2, vis)) {
+			if (solveKTUtil(x + 1, y + 2, vis, z + 1))
+				return true;
+		}
+
+		// (x-1,y+2) 
+		if (isSafe(x - 1, y + 2, vis)) {
+			if (solveKTUtil(x - 1, y + 2, vis, z + 1))
+				return true;
+		}
+
+		// (x-2,y+1) 
+		if (isSafe(x - 2, y + 1, vis)) {
+			if (solveKTUtil(x - 2, y + 1, vis, z + 1))
+				return true;
+		}
+
+		// (x-2,y-1) 
+		if (isSafe(x - 2, y - 1, vis)) {
+			if (solveKTUtil(x - 2, y - 1, vis, z + 1))
+				return true;
+		}
+
+		// (x-1,y-2) 
+		if (isSafe(x - 1, y - 2, vis)) {
+			if (solveKTUtil(x - 1, y - 2, vis, z + 1))
+				return true;
+		}
+
+		// (x+1,y-2) 
+		if (isSafe(x + 1, y - 2, vis)) {
+			if (solveKTUtil(x + 1, y - 2, vis, z + 1))
+				return true;
+		}
+
+		// (x+2,y-1) 
+		if (isSafe(x + 2, y - 1, vis)) {
+			if (solveKTUtil(x + 2, y - 1, vis, z + 1))
+				return true;
+		}
+
+		vis[x][y] = -1;
+
+		return false;
+	}
+
+	
+
+	public static void main(String[] args) {
+
+		solveKT();
+
+	}
+
+}
