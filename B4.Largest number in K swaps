@@ -1,0 +1,59 @@
+import java.io.*;
+import java.util.*;
+class GfG
+{
+    public static void main(String args[])throws IOException
+        {
+            Scanner sc = new Scanner(System.in);
+            int t = sc.nextInt();
+            while(t-->0)
+                {
+                    int k = sc.nextInt();
+                    String str = sc.next();
+                    Solution obj = new Solution();
+                    System.out.println(obj.findMaximumNum(str, k));
+                }
+        }
+}// } Driver Code Ends
+
+
+
+
+class Solution
+{
+    //Function to find the largest number after k swaps.
+    static String max;
+    public static String findMaximumNum(String str, int k)
+        {
+             max = "0";
+            char ch[] = str.toCharArray();
+            helper(ch,k);
+            return max;
+        }
+        
+    static void helper(char[] ch,int k){
+        if(new String(ch).compareTo(max)>0)
+        max = new String(ch);
+        
+        if(k==0){
+            return;
+        }
+        
+        for(int i=0;i<ch.length-1;i++){
+            for(int j=i+1;j<ch.length;j++){
+                if(ch[i]<ch[j]){
+                    swap(ch,i,j);
+                    helper(ch,k-1);
+                    swap(ch,i,j);
+                }
+            }
+        }
+        
+    }
+    
+    static void swap(char ch[],int i,int j){
+        char c = ch[i];
+        ch[i] = ch[j];
+        ch[j] = c;
+    }
+}
